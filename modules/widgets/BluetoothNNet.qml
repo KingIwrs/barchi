@@ -21,9 +21,9 @@ Rectangle {
     }
 
     function getBluetoothState() {
-        if (Bluetooth.defaultAdapter.pairable) {
+        if (Bluetooth.defaultAdapter.state == 1) { // 1 == "Enabled"
             return Theme.icons.bluetooth.on
-        } else {
+        } else if (Bluetooth.defaultAdapter.state == 0) { // 2 == "Disabled"
             return Theme.icons.bluetooth.off
         }
     }
@@ -75,7 +75,7 @@ Rectangle {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: (mouse)=> {
             if (mouse.button == Qt.LeftButton) {
-                Bluetooth.defaultAdapter.pairable = !Bluetooth.defaultAdapter.pairable
+                Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
             } else if (mouse.button == Qt.RightButton) {
                 openBluetui.startDetached()
             }
