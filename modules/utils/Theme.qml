@@ -16,6 +16,7 @@ QtObject {
     }
 
     readonly property var notifPanel: QtObject {
+        readonly property color bgColor: "#99000000"
         readonly property int width: 440
         readonly property int height: 500
         readonly property int margins: 12

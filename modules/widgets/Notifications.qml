@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 import Quickshell.Services.Notifications
 
 import "../utils/"
@@ -60,6 +61,7 @@ Rectangle {
         visible: false
 
         color: "transparent"
+        BackgroundEffect.blurRegion: Region { item: notifPanel; radius: Theme.radius }
         anchors {
             left: true
             bottom: true
@@ -75,6 +77,7 @@ Rectangle {
         // Makes a region mask so only the specified region in the PanelWindow
         // can be interacted with. `item` here sets the region to a specific item.
         // In this case, the below `Rectangle`.
+
         mask: Region {
             item: notifPanel
         }
@@ -89,7 +92,7 @@ Rectangle {
                 color: Theme.border.color
                 width: Theme.border.width
             }
-            color: Theme.bgColor
+            color: Theme.notifPanel.bgColor
 
             ListView {
                 model: NotificationServer.trackedNotifications
