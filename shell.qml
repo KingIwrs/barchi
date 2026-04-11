@@ -11,21 +11,21 @@ Scope {
         delegate: Bar {
             leftItems: [
                 SysTray {
-                    activeOutput: screen.name === "DP-1"
+                    // activeOutput: screen.name === "DP-1"
                 },
                 Notifications {},
             ]
             centerItems: [
                 AWName {
                     maxWidth: 90
-                    activeOutput: screen.name === "DP-1"
+                    // activeOutput: screen.name === "DP-1"
                 },
             ]
 
             rightItems: [
                 Audio {},
                 BluetoothNNet {
-                    activeOutput: screen.name === "DP-1"
+                    // activeOutput: screen.name === "DP-1"
                 },
                 DateTime {},
             ]
