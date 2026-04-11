@@ -20,6 +20,7 @@ Rectangle {
         width: Theme.border.width
     }
 
+    // Actually silence notifs, and detect that instead of setting this directly.
     property bool silenced: false
     function getBellIcon() {
         if (silenced) return Theme.icons.notifications.bellOff;
@@ -45,11 +46,50 @@ Rectangle {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: (mouse)=> {
             if (mouse.button == Qt.LeftButton) {
-                console.log("Notification: Left click")
-                // Open a notification tray.
+                notifContainer.visible = !notifContainer.visible
             } else if (mouse.button == Qt.RightButton) {
-                // Silence notifications. Set "root.silenced" to the state of actual notifications instead using hopes and dreams here.
+                // Actually silence notifications.
+                // The icon get function will check if notifications are silenced or not.
                 root.silenced = !root.silenced
+            }
+        }
+    }
+
+    PanelWindow {
+        id: notifContainer
+        visible: false
+
+        color: "transparent"
+        anchors {
+            left: true
+            bottom: true
+            top: true
+            right: true
+        }
+
+        // Makes a region mask so only the specified region in the PanelWindow
+        // can be interacted with. `item` here sets the region to a specific item.
+        // In this case, the below `Rectangle`.
+        mask: Region {
+            item: notifPanel
+        }
+        Rectangle {
+            id: notifPanel
+
+            width: 440
+            height: 500
+
+            radius: Theme.radius
+            border {
+                color: Theme.border.color
+                width: Theme.border.width
+            }
+            color: Theme.bgColor
+
+            ListView {
+                model: NotificationServer.trackedNotifications
+
+                // Add the notifications here.
             }
         }
     }
