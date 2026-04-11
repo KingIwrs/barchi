@@ -47,7 +47,11 @@ Rectangle {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: (mouse)=> {
             if (mouse.button == Qt.LeftButton) {
-                notifContainer.visible = !notifContainer.visible
+                if (notifPanel.height == 0) {
+                    notifPanelOpen.running = true
+                } else {
+                    notifPanelClose.running = true
+                }
             } else if (mouse.button == Qt.RightButton) {
                 // Actually silence notifications.
                 // The icon get function will check if notifications are silenced or not.
@@ -58,7 +62,6 @@ Rectangle {
 
     PanelWindow {
         id: notifContainer
-        visible: false
 
         color: "transparent"
         BackgroundEffect.blurRegion: Region { item: notifPanel; radius: Theme.radius }
@@ -84,7 +87,22 @@ Rectangle {
             id: notifPanel
 
             width: Theme.notifPanel.width
-            height: Theme.notifPanel.height
+            PropertyAnimation {
+                id: notifPanelOpen
+                target: notifPanel
+                property: "height"
+                from: 0
+                to: Theme.notifPanel.height
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                id: notifPanelClose
+                target: notifPanel
+                property: "height"
+                from: Theme.notifPanel.height
+                to: 0
+                easing.type: Easing.InOutQuad
+            }
 
             radius: Theme.radius
             border {
