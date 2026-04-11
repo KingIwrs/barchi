@@ -77,7 +77,6 @@ Rectangle {
         // Makes a region mask so only the specified region in the PanelWindow
         // can be interacted with. `item` here sets the region to a specific item.
         // In this case, the below `Rectangle`.
-
         mask: Region {
             item: notifPanel
         }
