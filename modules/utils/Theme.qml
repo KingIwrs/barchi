@@ -20,7 +20,7 @@ QtObject {
         readonly property int width: 440
         readonly property int height: 500
         readonly property int margins: 12
-        readonly property int padding: 12
+        readonly property int padding: 24
     }
     readonly property var notifs: QtObject {
         // add notification theming here.

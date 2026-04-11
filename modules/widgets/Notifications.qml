@@ -103,9 +103,23 @@ Rectangle {
             color: Theme.notifPanel.bgColor
 
             ListView {
+                id: listView
                 model: NotificationServer.trackedNotifications
+                delegate: notifs
+                anchors.fill: parent
+            }
+            Rectangle {
+                id: notifs
+                width: listView.width - Theme.notifPanel.padding * 2
+                height: 150
 
-                // Add the notifications here.
+                radius: Theme.radius
+                border {
+                    color: Theme.border.color
+                    width: Theme.border.width
+                }
+                color: Theme.notifPanel.bgColor
+                anchors.centerIn: parent
             }
         }
     }
