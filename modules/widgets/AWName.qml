@@ -44,9 +44,18 @@ Rectangle {
         width: Theme.border.width
     }
 
+    function getText(win, max) {
+        if (win.title.length == 0) {
+            return win.appId;
+        } else if (win.title.length > max) {
+            return win.title.substring(0, max) + "...";
+        } else {
+            return win.title;
+        }
+    }
     Text {
         id: title
-        text: niri.focusedWindow?.title.length > maxWidth ? niri.focusedWindow?.title.substring(0, maxWidth) + '...' : niri.focusedWindow?.title
+        text: getText(niri.focusedWindow, maxWidth)
         color: Theme.textColor
         font {
             family: Theme.font.family
