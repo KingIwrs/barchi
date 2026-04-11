@@ -23,10 +23,10 @@ Rectangle {
     // Actually silence notifs, and detect that instead of setting this directly.
     property bool silenced: false
     function getBellIcon() {
-        if (silenced) return Theme.icons.notifications.bellOff;
+        if (silenced) return Theme.icons.notifs.bellOff;
         // Detect if there is any notifications and show
         // Theme.icons.notifications.bellBadge instead.
-        if (!silenced) return Theme.icons.notifications.bell;
+        if (!silenced) return Theme.icons.notifs.bell;
     }
     property string bellIcon: getBellIcon()
     Text {
@@ -67,9 +67,9 @@ Rectangle {
             right: true
         }
         margins {
-            top: Theme.margin.bar.left
-            left: Theme.margin.bar.left
-            right: Theme.margin.bar.right
+            top: Theme.notifPanel.margins
+            left: Theme.notifPanel.margins
+            right: Theme.notifPanel.margins
         }
 
         // Makes a region mask so only the specified region in the PanelWindow
@@ -81,8 +81,8 @@ Rectangle {
         Rectangle {
             id: notifPanel
 
-            width: 440
-            height: 500
+            width: Theme.notifPanel.width
+            height: Theme.notifPanel.height
 
             radius: Theme.radius
             border {

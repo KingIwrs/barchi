@@ -14,6 +14,11 @@ QtObject {
         readonly property int padding: 12
         readonly property int spacing: 8
     }
+    readonly property var notifPanel: QtObject {
+        readonly property int margins: 12
+        readonly property int width: 440
+        readonly property int height: 500
+    }
     readonly property int radius: 20
     readonly property color bgColor: "#55000000"
 
@@ -40,7 +45,7 @@ QtObject {
             readonly property string closed: "\uf107"
             readonly property string opened: "\uf068"
         }
-        readonly property var notifications: QtObject {
+        readonly property var notifs: QtObject {
             readonly property string bell: "\udb80\udc9a"
             readonly property string bellBadge: "\udb84\udd6b"
             readonly property string bellOff: "\udb80\udc9b"
