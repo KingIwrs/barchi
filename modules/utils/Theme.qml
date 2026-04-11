@@ -32,8 +32,15 @@ QtObject {
             readonly property string lvl4: "\uf240 "
             readonly property string charging: "\udb85\udc0b "
         }
-        readonly property string sysTrayClosed: "\uf107"
-        readonly property string sysTrayOpened: "\uf068"
+        readonly property var sysTray: QtObject {
+            readonly property string closed: "\uf107"
+            readonly property string opened: "\uf068"
+        }
+        readonly property var notifications: QtObject {
+            readonly property string bell: "\udb80\udc9a"
+            readonly property string bellBadge: "\udb84\udd6b"
+            readonly property string bellOff: "\udb80\udc9b"
+        }
         readonly property var volume: QtObject {
             readonly property string high: "\uf028"
             readonly property string medium: "\uf027"

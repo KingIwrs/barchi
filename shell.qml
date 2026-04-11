@@ -12,7 +12,8 @@ Scope {
             leftItems: [
                 SysTray {
                     activeOutput: screen.name === "DP-1"
-                }
+                },
+                Notifications {},
             ]
             centerItems: [
                 AWName {

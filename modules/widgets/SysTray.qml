@@ -20,7 +20,7 @@ Rectangle {
         width: Theme.border.width
     }
 
-    property string icon: Theme.icons.sysTrayClosed
+    property string icon: Theme.icons.sysTray.closed
     Text {
         id: iconDisplay
         text: root.icon
@@ -37,10 +37,10 @@ Rectangle {
         cursorShape: Qt.PointingHandCursor;
         acceptedButtons: Qt.LeftButton
         onClicked: (mouse)=> {
-            if (root.icon == Theme.icons.sysTrayClosed) {
-                root.icon = Theme.icons.sysTrayOpened
+            if (root.icon == Theme.icons.sysTray.closed) {
+                root.icon = Theme.icons.sysTray.opened
             } else {
-                root.icon = Theme.icons.sysTrayClosed
+                root.icon = Theme.icons.sysTray.closed
             }
         }
     }
