@@ -19,19 +19,19 @@ PanelWindow {
     }
 
     screen: modelData
-    implicitHeight: Theme.height
+    implicitHeight: Theme.bar.height
     color: "transparent"
 
     margins {
-        top: Theme.marginTop
-        left: Theme.marginLeft
-        right: Theme.marginRight
+        top: Theme.bar.margin.top
+        left: Theme.bar.margin.left
+        right: Theme.bar.margin.right
     }
 
     Row {
         id: left
         anchors.verticalCenter: parent.verticalCenter
-        spacing: Theme.spacing
+        spacing: Theme.bar.spacing
     }
 
     Row {
@@ -40,7 +40,7 @@ PanelWindow {
             centerIn: parent
             verticalCenter: parent.verticalCenter
         }
-        spacing: Theme.spacing
+        spacing: Theme.bar.spacing
     }
 
     Row {
@@ -49,7 +49,7 @@ PanelWindow {
             right: parent.right
             verticalCenter: parent.verticalCenter
         }
-        spacing: Theme.spacing
+        spacing: Theme.bar.spacing
     }
 
 	Component.onCompleted: {

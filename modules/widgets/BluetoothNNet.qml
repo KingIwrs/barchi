@@ -10,8 +10,8 @@ Rectangle {
     property bool activeOutput: true
     visible: activeOutput
 
-    height: Theme.height
-    implicitWidth: text.width + Theme.padding * 2
+    height: Theme.bar.height
+    implicitWidth: text.width + Theme.bar.padding * 2
 
     color: Theme.bgColor
     radius: Theme.radius

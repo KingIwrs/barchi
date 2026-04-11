@@ -15,7 +15,7 @@ Rectangle {
 		objects: [ Pipewire.defaultAudioSink ]
 	}
 
-    height: Theme.height
+    height: Theme.bar.height
     implicitWidth: barText.width + 24
     color: Theme.bgColor
     radius: Theme.radius

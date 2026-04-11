@@ -10,8 +10,8 @@ Rectangle {
     property bool activeOutput: true
     visible: activeOutput
 
-    height: Theme.height
-    implicitWidth: text.width + Theme.padding * 2
+    height: Theme.bar.height
+    implicitWidth: text.width + Theme.bar.padding * 2
 
     color: Theme.bgColor
     radius: Theme.radius
@@ -65,6 +65,11 @@ Rectangle {
             bottom: true
             top: true
             right: true
+        }
+        margins {
+            top: Theme.margin.bar.left
+            left: Theme.margin.bar.left
+            right: Theme.margin.bar.right
         }
 
         // Makes a region mask so only the specified region in the PanelWindow

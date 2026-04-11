@@ -4,13 +4,17 @@ import QtQuick
 QtObject {
     id: root
 
-    readonly property int height: 35
+    readonly property var bar: QtObject {
+        readonly property int height: 35
+        readonly property var margin: QtObject {
+            readonly property int top: 6
+            readonly property int left: 12
+            readonly property int right: 12
+        }
+        readonly property int padding: 12
+        readonly property int spacing: 8
+    }
     readonly property int radius: 20
-    readonly property int marginTop: 6
-    readonly property int marginLeft: 12
-    readonly property int marginRight: 12
-    readonly property int padding: 12
-    readonly property int spacing: 8
     readonly property color bgColor: "#55000000"
 
     readonly property var border: QtObject {

@@ -29,13 +29,12 @@ Rectangle {
     visible: getVisibility()
 
     function getWidth(max) {
-        // Math.min(title.width + Theme.padding * 2, max)
         let charWidth = title.width/title.text.length
-        let maxWidth = charWidth * max + charWidth * 3 + Theme.padding * 2
-        return Math.min(title.width + Theme.padding * 2, maxWidth)
+        let maxWidth = charWidth * max + charWidth * 3 + Theme.bar.padding * 2
+        return Math.min(title.width + Theme.bar.padding * 2, maxWidth)
     }
 
-    height: Theme.height
+    height: Theme.bar.height
     implicitWidth: getWidth(maxWidth)
 
     color: Theme.bgColor
