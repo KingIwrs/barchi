@@ -53,8 +53,17 @@ PanelWindow {
     }
 
 	Component.onCompleted: {
-		for (var item of leftItems) { item.parent = left; item.anchors.verticalCenter = left.verticalCenter; }
-		for (var item of centerItems) { item.parent = centre; item.anchors.verticalCenter = centre.verticalCenter; }
-		for (var item of rightItems) { item.parent = right; item.anchors.verticalCenter = right.verticalCenter; }
+        for (var item of leftItems) {
+            item.parent = left;
+            item.anchors.verticalCenter = left.verticalCenter;
+        }
+        for (var item of centerItems) {
+            item.parent = centre;
+            item.anchors.verticalCenter = centre.verticalCenter;
+        }
+        for (var item of rightItems) {
+            item.parent = right;
+            item.anchors.verticalCenter = right.verticalCenter;
+        }
 	}
 }
