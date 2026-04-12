@@ -13,7 +13,9 @@ Singleton {
     Connections {
         target: server
         function onNotification(n) {
-            n.tracked = true
+            if (!n.transient) {
+                n.tracked = true
+            }
         }
     }
 
