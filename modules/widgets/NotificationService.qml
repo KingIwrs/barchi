@@ -2,10 +2,21 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
+import Quickshell.Services.Notifications
 
 
 Singleton {
     id: root
+    property var notifications: server ? server.trackedNotifications : []
 
-    // Figure out how to setup the NotificationServer
+    Connections {
+        target: server
+        function onNotification(n) {
+            n.tracked = true
+        }
+    }
+
+    NotificationServer {
+        id: server
+    }
 }

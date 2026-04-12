@@ -27,6 +27,7 @@ Rectangle {
         if (silenced) return Theme.icons.notifs.bellOff;
         // Detect if there is any notifications and show
         // Theme.icons.notifs.bellBadge instead.
+        if (NotificationService.notifications.count > 0) return Theme.icons.notifs.bellBadge;
         if (!silenced) return Theme.icons.notifs.bell;
     }
     property string bellIcon: getBellIcon()
@@ -102,18 +103,49 @@ Rectangle {
             }
             color: Theme.notifPanel.bgColor
 
-            Rectangle {
-                id: notifs
-                width: listView.width - Theme.notifPanel.padding * 2
-                height: 150
+            ListView {
+                id: listView
 
-                radius: Theme.radius
-                border {
-                    color: Theme.border.color
-                    width: Theme.border.width
+                clip: true
+                width: parent.width
+                height: parent.height
+
+                topMargin: Theme.notifPanel.padding
+                bottomMargin: Theme.notifPanel.padding
+                spacing: Theme.notifPanel.spacing
+
+                verticalLayoutDirection: ListView.BottomToTop
+
+                model: NotificationService.notifications
+
+                delegate: Rectangle {
+                    width: listView.width - Theme.notifPanel.padding * 2
+                    height: Theme.notifs.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    function getColor(modelData) {
+                        if (modelData.urgency == 0) return Theme.notifs.borderUrgency.low;
+                        if (modelData.urgency == 1) return Theme.notifs.borderUrgency.normal;
+                        if (modelData.urgency == 2) return Theme.notifs.borderUrgency.critical;
+                    }
+                    color: Theme.bgColor
+                    radius: Theme.radius
+                    border {
+                        color: getColor(modelData)
+                        width: Theme.border.width
+                    }
+
+
+                    Text {
+                        text: modelData.summary + "\n" + modelData.body
+                        color: Theme.textColor
+                        font {
+                            family: Theme.font.family
+                            pixelSize: Theme.font.size
+                        }
+                        anchors.centerIn: parent
+                    }
                 }
-                color: Theme.notifPanel.bgColor
-                anchors.centerIn: parent
             }
         }
     }

@@ -21,9 +21,16 @@ QtObject {
         readonly property int height: 500
         readonly property int margins: 12
         readonly property int padding: 24
+        readonly property int spacing: 12
     }
     readonly property var notifs: QtObject {
         // add notification theming here.
+        readonly property int height: 120
+        readonly property var borderUrgency: QtObject {
+            readonly property color low: "#004466"
+            readonly property color normal: "#7bccff"
+            readonly property color critical: "#990000"
+        }
     }
 
     readonly property int radius: 20
