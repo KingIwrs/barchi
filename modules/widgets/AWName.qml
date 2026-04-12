@@ -44,8 +44,10 @@ Rectangle {
         width: Theme.border.width
     }
 
-    function getText(win, max) {
-        if (win.title.length == 0) {
+    function getText(win, max, altText) {
+        if (altText) {
+            return `AppID: ${win.appId} | PID: ${win.pid}`
+        } else if (win.title.length == 0) {
             return win.appId;
         } else if (win.title.length > max) {
             return win.title.substring(0, max) + "...";
@@ -55,12 +57,23 @@ Rectangle {
     }
     Text {
         id: title
-        text: getText(niri.focusedWindow, maxWidth)
+        property bool altText: false
+        text: getText(niri.focusedWindow, maxWidth, altText)
         color: Theme.textColor
         font {
             family: Theme.font.family
             pixelSize: Theme.font.size
         }
         anchors.centerIn: parent
+    }
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor;
+        acceptedButtons: Qt.LeftButton
+        onClicked: (mouse)=> {
+            if (mouse.button == Qt.LeftButton) {
+                title.altText = !title.altText
+            }
+        }
     }
 }
