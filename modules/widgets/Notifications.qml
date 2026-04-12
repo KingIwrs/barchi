@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Widgets
 import Quickshell.Services.Notifications
 
 import "../utils/"
@@ -118,15 +119,17 @@ Rectangle {
 
                 model: NotificationService.notifications
 
-                delegate: Rectangle {
+                delegate: ClippingRectangle {
                     width: listView.width - Theme.notifPanel.padding * 2
                     height: Theme.notifs.height
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     function getColor(modelData) {
-                        if (modelData.urgency == 0) return Theme.notifs.borderUrgency.low;
-                        if (modelData.urgency == 1) return Theme.notifs.borderUrgency.normal;
-                        if (modelData.urgency == 2) return Theme.notifs.borderUrgency.critical;
+                        switch (modelData.urgency) {
+                            case 0: return Theme.notifs.borderUrgency.low;
+                            case 1: return Theme.notifs.borderUrgency.normal;
+                            case 2: return Theme.notifs.borderUrgency.critical;
+                        }
                     }
                     color: Theme.bgColor
                     radius: Theme.radius
@@ -136,14 +139,53 @@ Rectangle {
                     }
 
 
-                    Text {
-                        text: modelData.summary + "\n" + modelData.body
-                        color: Theme.textColor
-                        font {
-                            family: Theme.font.family
-                            pixelSize: Theme.font.size
+                    Image {
+                        source: modelData.image
+                        width: Theme.notifs.imageWidth
+                        fillMode: Image.PreserveAspectFit
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                            left: parent.left
+                            leftMargin: Theme.notifs.padding
                         }
-                        anchors.centerIn: parent
+                    }
+                    // APP NAME (yellow + bold)
+                    Column {
+                        width: modelData.image ? parent.width - (Theme.notifs.imageWidth + Theme.notifs.padding * 2) : parent.width
+                        anchors {
+                            left: parent.left
+                        }
+                        topPadding: Theme.notifs.padding
+                        leftPadding: modelData.image ? Theme.notifs.imageWidth + Theme.notifs.padding * 2 : Theme.notifs.padding
+
+                        Text {
+                            text: modelData.appName
+                            color: Theme.notifs.textColor.appName
+                            font {
+                                family: Theme.font.family
+                                pixelSize: Theme.font.size
+                                bold: true
+                            }
+                        }
+                        Text {
+                            text: modelData.summary + " >"
+                            color: Theme.notifs.textColor.summary
+                            font {
+                                family: Theme.font.family
+                                pixelSize: Theme.font.size
+                                bold: true
+                            }
+                        }
+                        Text {
+                            text: modelData.body
+                            color: Theme.notifs.textColor.body
+                            width: parent.width
+                            wrapMode: Text.Wrap
+                            font {
+                                family: Theme.font.family
+                                pixelSize: Theme.font.size
+                            }
+                        }
                     }
                 }
             }
