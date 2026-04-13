@@ -64,12 +64,6 @@ Rectangle {
         id: notifContainer
         visible: notifPanel.height == 0 ? false : true
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
-        Connections {
-            target: Keys
-            function onEscapePressed() {
-                console.log("Escape pressed")
-            }
-        }
 
         color: "transparent"
         BackgroundEffect.blurRegion: Region { item: notifPanel; radius: Theme.radius }
