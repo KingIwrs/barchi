@@ -206,11 +206,9 @@ Rectangle {
                     function handleClick(modelData) {
                         for (let i = 0; i < modelData.actions.length; i++) {
                             let action = modelData.actions[i]
-                            action.evoke()
-                            console.log(action);
+                            action.invoke();
                             return;
                         }
-                        console.log(modelData.actions);
                         modelData.dismiss();
                     }
                     MouseArea {
