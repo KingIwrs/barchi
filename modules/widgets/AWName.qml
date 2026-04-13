@@ -45,14 +45,16 @@ Rectangle {
     }
 
     function getText(win, max, altText) {
-        if (altText) {
+        if (!win) {
+            return "";
+        } else if (altText) {
             return `AppID: ${win.appId} | PID: ${win.pid}`
-        } else if (win.title.length == 0) {
+        } else if (win?.title.length == 0) {
             return win.appId;
-        } else if (win.title.length > max) {
+        } else if (win?.title.length > max) {
             return win.title.substring(0, max) + "...";
         } else {
-            return win.title;
+            return win?.title;
         }
     }
     Text {
