@@ -107,8 +107,12 @@ Rectangle {
                 id: listView
 
                 clip: true
-                width: parent.width
-                height: parent.height
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+                height: Math.min(contentHeight + Theme.notifPanel.padding * 2, parent.height)
 
                 topMargin: Theme.notifPanel.padding
                 bottomMargin: Theme.notifPanel.padding
@@ -148,7 +152,20 @@ Rectangle {
                             leftMargin: Theme.notifs.padding
                         }
                     }
-                    // APP NAME (yellow + bold)
+                    Text {
+                        text: modelData.time // Gets updated to current time when bar restarts...
+                        color: "white"
+                        font {
+                            family: Theme.font.family
+                            pixelSize: Theme.font.size
+                        }
+                        anchors {
+                            right: parent.right
+                            top: parent.top
+                            rightMargin: Theme.notifs.padding
+                            topMargin: Theme.notifs.padding
+                        }
+                    }
                     Column {
                         width: modelData.image ? parent.width - (Theme.notifs.imageWidth + Theme.notifs.padding * 2) : parent.width
                         anchors {
@@ -183,6 +200,27 @@ Rectangle {
                             font {
                                 family: Theme.font.family
                                 pixelSize: Theme.font.size
+                            }
+                        }
+                    }
+
+                    function handleClick(modelData) {
+                        for (let i = 0; i < modelData.actions.length; i++) {
+                            let action = modelData.actions[i]
+                            action.evoke()
+                            console.log(action);
+                            return;
+                        }
+                        console.log(modelData.actions);
+                        modelData.dismiss();
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor;
+                        acceptedButtons: Qt.LeftButton
+                        onClicked: (mouse)=> {
+                            if (mouse.button == Qt.LeftButton) {
+                                handleClick(modelData)
                             }
                         }
                     }

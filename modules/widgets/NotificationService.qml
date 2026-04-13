@@ -13,11 +13,15 @@ Singleton {
     Connections {
         target: server
         function onNotification(n) {
-            n.tracked = true
+            const time = new Date();
+            n.tracked = true;
+            n.time = `${time.getHours()}.${time.getMinutes()}`;
         }
     }
 
     NotificationServer {
         id: server
+
+        actionsSupported: true
     }
 }
