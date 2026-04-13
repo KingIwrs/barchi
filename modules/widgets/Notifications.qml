@@ -26,7 +26,6 @@ Rectangle {
     property bool silenced: false
     function getBellIcon() {
         if (silenced) return Theme.icons.notifs.bellOff;
-        // Theme.icons.notifs.bellBadge instead.
         if (NotificationService.hasNotifications) return Theme.icons.notifs.bellBadge;
         if (!silenced) return Theme.icons.notifs.bell;
     }
