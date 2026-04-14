@@ -64,7 +64,7 @@ Rectangle {
 
     Process {
         id: openBluetui
-        command: [ "wezterm-gui", "-e", Theme.apps.bluetooth ]
+        command: [ "sh", "-c", Theme.exec.bluetooth ]
     }
     MouseArea {
         anchors.left: parent.left
@@ -83,7 +83,7 @@ Rectangle {
     }
     Process {
         id: openImpala
-        command: [ "wezterm-gui", "-e", Theme.apps.net ]
+        command: [ "sh", "-c", Theme.exec.net ]
     }
     MouseArea {
         anchors.right: parent.right

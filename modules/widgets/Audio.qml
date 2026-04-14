@@ -51,7 +51,7 @@ Rectangle {
 
     Process {
         id: openWiremix
-        command: [ "wezterm-gui", "-e", Theme.apps.audio ]
+        command: [ "sh", "-c", Theme.exec.audio ]
     }
     MouseArea {
         anchors.fill: parent
