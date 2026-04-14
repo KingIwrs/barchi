@@ -24,7 +24,8 @@ QtObject {
         readonly property int spacing: 12
     }
     readonly property var notifs: QtObject {
-        // add notification theming here.
+        readonly property int maxPopups: 5
+        readonly property int maxHistory: 100
         readonly property int height: 120
         readonly property int imageWidth: 75
         readonly property var borderUrgency: QtObject {
@@ -37,6 +38,12 @@ QtObject {
             readonly property color appName: "yellow"
             readonly property color summary: "white"
             readonly property color body: "#cccccc"
+        }
+        readonly property var expireTime: QtObject {
+            readonly property bool keepOriginal: true
+            readonly property real lowUrgency: 3000
+            readonly property real normalUrgency: 5000
+            readonly property real criticalUrgency: 0 // 0 == don't expire
         }
     }
 
@@ -72,6 +79,7 @@ QtObject {
             readonly property string bell: "\udb80\udc9a"
             readonly property string bellBadge: "\udb84\udd6b"
             readonly property string bellOff: "\udb80\udc9b"
+            readonly property string clear: "\udb80\udf9f"
         }
 
         readonly property var volume: QtObject {

@@ -32,4 +32,5 @@ Scope {
         }
     }
     AudioOSD {}
+    NotificationPopups {}
 }

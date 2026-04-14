@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
@@ -26,7 +27,7 @@ Rectangle {
     property bool silenced: false
     function getBellIcon() {
         if (silenced) return Theme.icons.notifs.bellOff;
-        if (NotificationService.hasNotifications) return Theme.icons.notifs.bellBadge;
+        if (NotificationService.historyModel.count > 0) return Theme.icons.notifs.bellBadge;
         if (!silenced) return Theme.icons.notifs.bell;
     }
     property string bellIcon: getBellIcon()
@@ -77,7 +78,6 @@ Rectangle {
         margins {
             top: Theme.notifPanel.margins
             left: Theme.notifPanel.margins
-            right: Theme.notifPanel.margins
         }
 
         // Makes a region mask so only the specified region in the PanelWindow
@@ -108,32 +108,65 @@ Rectangle {
             }
             color: Theme.notifPanel.bgColor
 
-            ListView {
-                id: listView
+            Rectangle {
+                id: clearButton
 
-                clip: true
+                color: Theme.bgColor
+                radius: Theme.radius
+                bottomLeftRadius: 0
+                bottomRightRadius: 0
+                border {
+                    color: Theme.border.color
+                    width: Theme.border.width
+                }
                 anchors {
                     top: parent.top
                     left: parent.left
                     right: parent.right
                 }
-                height: Math.min(contentHeight + Theme.notifPanel.padding * 2, parent.height)
+                height: 40
+
+                Text {
+                    text: Theme.icons.notifs.clear
+                    color: Theme.textColor
+                    font {
+                        family: Theme.font.family
+                        pixelSize: Theme.font.size
+                    }
+                    anchors.centerIn: parent
+                }
+                MouseArea {
+                    anchors.fill: parent;
+                    cursorShape: Qt.PointingHandCursor;
+                    acceptedButtons: Qt.LeftButton;
+                    onClicked: NotificationService.historyModel.clear();
+                }
+            }
+
+            ListView {
+                id: listView
+
+                clip: true
+                anchors {
+                    top: clearButton.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
 
                 topMargin: Theme.notifPanel.padding
                 bottomMargin: Theme.notifPanel.padding
                 spacing: Theme.notifPanel.spacing
 
-                verticalLayoutDirection: ListView.BottomToTop
-
-                model: NotificationService.notifications
+                model: NotificationService.historyModel
 
                 delegate: ClippingRectangle {
                     width: listView.width - Theme.notifPanel.padding * 2
                     height: Theme.notifs.height
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.horizontalCenter: parent?.horizontalCenter
 
-                    function getColor(modelData) {
-                        switch (modelData.urgency) {
+                    function getColor() {
+                        switch (urgency) {
                             case 0: return Theme.notifs.borderUrgency.low;
                             case 1: return Theme.notifs.borderUrgency.normal;
                             case 2: return Theme.notifs.borderUrgency.critical;
@@ -142,13 +175,15 @@ Rectangle {
                     color: Theme.bgColor
                     radius: Theme.radius
                     border {
-                        color: getColor(modelData)
+                        color: getColor()
                         width: Theme.border.width
                     }
 
 
                     Image {
-                        source: modelData.image
+                        // I need to cache the image in NotificationService so it can
+                        // show an image even if Notification server is no longer providing it.
+                        source: image
                         width: Theme.notifs.imageWidth
                         fillMode: Image.PreserveAspectFit
                         anchors {
@@ -158,7 +193,7 @@ Rectangle {
                         }
                     }
                     Text {
-                        text: modelData.time // Gets updated to current time when bar restarts...
+                        text: time // Gets updated to current time when bar restarts...
                         color: "white"
                         font {
                             family: Theme.font.family
@@ -172,15 +207,15 @@ Rectangle {
                         }
                     }
                     Column {
-                        width: modelData.image ? parent.width - (Theme.notifs.imageWidth + Theme.notifs.padding * 2) : parent.width
+                        width: image ? parent.width - (Theme.notifs.imageWidth + Theme.notifs.padding * 2) : parent.width
                         anchors {
                             left: parent.left
                         }
                         topPadding: Theme.notifs.padding
-                        leftPadding: modelData.image ? Theme.notifs.imageWidth + Theme.notifs.padding * 2 : Theme.notifs.padding
+                        leftPadding: image ? Theme.notifs.imageWidth + Theme.notifs.padding * 2 : Theme.notifs.padding
 
                         Text {
-                            text: modelData.appName
+                            text: appName
                             color: Theme.notifs.textColor.appName
                             font {
                                 family: Theme.font.family
@@ -189,7 +224,7 @@ Rectangle {
                             }
                         }
                         Text {
-                            text: modelData.summary + " >"
+                            text: summary + " >"
                             color: Theme.notifs.textColor.summary
                             font {
                                 family: Theme.font.family
@@ -198,7 +233,7 @@ Rectangle {
                             }
                         }
                         Text {
-                            text: modelData.body
+                            text: body
                             color: Theme.notifs.textColor.body
                             width: parent.width
                             wrapMode: Text.Wrap
@@ -209,25 +244,16 @@ Rectangle {
                         }
                     }
 
-                    function handleClick(modelData) {
-                        for (let i = 0; i < modelData.actions.length; i++) {
-                            let action = modelData.actions[i]
-                            action.invoke();
-                            return;
-                        }
-                        modelData.dismiss();
+                    function handleClick() {
                     }
                     MouseArea {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor;
-                        acceptedButtons: Qt.LeftButton
-                        onClicked: (mouse)=> {
-                            if (mouse.button == Qt.LeftButton) {
-                                handleClick(modelData)
-                            }
-                        }
+                        acceptedButtons: Qt.LeftButton;
+                        onClicked: NotificationService.historyModel.remove(index);
                     }
                 }
+
             }
         }
     }
