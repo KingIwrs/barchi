@@ -137,6 +137,8 @@ PanelWindow {
                     Text {
                         text: modelData.appName
                         color: Theme.notifs.textColor.appName
+                        width: parent.width
+                        wrapMode: Text.Wrap
                         font {
                             family: Theme.font.family
                             pixelSize: Theme.font.size
@@ -146,6 +148,8 @@ PanelWindow {
                     Text {
                         text: modelData.summary + " >"
                         color: Theme.notifs.textColor.summary
+                        width: parent.width
+                        wrapMode: Text.Wrap
                         font {
                             family: Theme.font.family
                             pixelSize: Theme.font.size

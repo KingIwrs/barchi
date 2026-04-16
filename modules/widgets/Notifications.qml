@@ -217,6 +217,8 @@ Rectangle {
                         Text {
                             text: appName
                             color: Theme.notifs.textColor.appName
+                            width: parent.width
+                            wrapMode: Text.Wrap
                             font {
                                 family: Theme.font.family
                                 pixelSize: Theme.font.size
@@ -226,6 +228,8 @@ Rectangle {
                         Text {
                             text: summary + " >"
                             color: Theme.notifs.textColor.summary
+                            width: parent.width
+                            wrapMode: Text.Wrap
                             font {
                                 family: Theme.font.family
                                 pixelSize: Theme.font.size
