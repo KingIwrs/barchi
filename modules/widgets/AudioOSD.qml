@@ -100,7 +100,7 @@ Item {
 					}
 
                     Text {
-                        text: root.volumeIcon + "  " + root.volumeText
+                        text: root.volumeIcon + " " + root.volumeText
                         color: "white"
                     }
 

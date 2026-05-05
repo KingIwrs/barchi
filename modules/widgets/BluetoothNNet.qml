@@ -52,7 +52,7 @@ Rectangle {
     property string bluetoothState: getBluetoothState()
     property string netState: getNetworkState()
 
-    property string buttonText: this.bluetoothState + "  |  " + this.netState
+    property string buttonText: this.bluetoothState + " | " + this.netState
 
     Text {
         id: text
