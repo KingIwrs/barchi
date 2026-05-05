@@ -4,8 +4,10 @@ import QtQuick
 import Quickshell
 import "./modules/bar/"
 import "./modules/widgets/"
+import "./modules/utils/"
 
 Scope {
+    Fonts {}
     Variants {
         model: Quickshell.screens
         delegate: Bar {
