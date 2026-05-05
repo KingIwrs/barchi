@@ -56,7 +56,7 @@ QtObject {
 
     readonly property color textColor: "#f0f0f0"
     readonly property var font: QtObject {
-        readonly property string family: "Sono"
+        readonly property string family: "Sono Nerd Font"
         readonly property int size: 14
     }
 
