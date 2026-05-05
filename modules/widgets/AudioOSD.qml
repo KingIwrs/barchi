@@ -101,7 +101,11 @@ Item {
 
                     Text {
                         text: root.volumeIcon + " " + root.volumeText
-                        color: "white"
+                        font {
+                            family: Theme.font.family
+                            pixelSize: Theme.font.size
+                        }
+                        color: Theme.textColor
                     }
 
 					Rectangle {
@@ -121,6 +125,7 @@ Item {
 
 							implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
 							radius: Theme.radius
+                            color: Theme.textColor
 						}
 					}
 				}

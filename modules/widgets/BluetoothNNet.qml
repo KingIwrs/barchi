@@ -58,7 +58,10 @@ Rectangle {
         id: text
         anchors.centerIn: parent
         text: root.buttonText
-        font.pixelSize: Theme.font.size
+        font {
+            family: Theme.font.family
+            pixelSize: Theme.font.size
+        }
         color: Theme.textColor
     }
 
