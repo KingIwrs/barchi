@@ -102,8 +102,8 @@ QtObject {
     }
 
     readonly property var exec: QtObject {
-        readonly property string audio: "/usr/bin/wezterm -e wiremix"
-        readonly property string bluetooth: "/usr/bin/wezterm -e bluetui"
-        readonly property string net: "/usr/bin/wezterm -e impala"
+        readonly property string audio: "/usr/bin/kitty wiremix"
+        readonly property string bluetooth: "/usr/bin/kitty bluetui"
+        readonly property string net: "/usr/bin/kitty impala"
     }
 }
